@@ -1,6 +1,9 @@
 use crate::Event;
 use futures::{future, stream, Async, Future, Poll, Sink, Stream};
+use std::fs::File;
+use std::io::Read;
 use std::net::SocketAddr;
+use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use stream_cancel::{StreamExt, Trigger, Tripwire};
@@ -72,6 +75,13 @@ pub fn random_string(len: usize) -> String {
 
 pub fn random_lines(len: usize) -> impl Iterator<Item = String> {
     std::iter::repeat(()).map(move |_| random_string(len))
+}
+
+pub fn lines_from_file<P: AsRef<Path>>(path: P) -> Vec<String> {
+    let mut file = File::open(path).unwrap();
+    let mut output = String::new();
+    file.read_to_string(&mut output).unwrap();
+    output.lines().map(|s| s.to_owned()).collect()
 }
 
 pub fn wait_for(f: impl Fn() -> bool) {

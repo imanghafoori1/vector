@@ -90,7 +90,7 @@ pub fn file_source(config: &FileConfig, out: mpsc::Sender<Event>) -> super::Sour
     let out = out
         .sink_map_err(|_| ())
         .with(move |(line, file): (Bytes, String)| {
-            trace!(message = "Recieved one event.", file = file.as_str());
+            trace!(message = "Received one event.", file = file.as_str());
 
             let event = create_event(line, file, &host_key, &hostname, &file_key);
 

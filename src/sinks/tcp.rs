@@ -1,9 +1,12 @@
 use crate::{
     buffers::Acker,
-    event::{self, Event},
-    sinks::util::SinkExt,
+    sinks::util::{
+        encoding::{self, BasicEncoding},
+        SinkExt,
+    },
     topology::config::{DataType, SinkConfig},
 };
+
 use bytes::Bytes;
 use futures::{future, try_ready, Async, AsyncSink, Future, Poll, Sink, StartSend};
 use serde::{Deserialize, Serialize};
@@ -21,14 +24,7 @@ use tracing::field;
 #[serde(deny_unknown_fields)]
 pub struct TcpSinkConfig {
     pub address: String,
-    pub encoding: Option<Encoding>,
-}
-
-#[derive(Deserialize, Serialize, Debug, Eq, PartialEq, Clone)]
-#[serde(rename_all = "snake_case")]
-pub enum Encoding {
-    Text,
-    Json,
+    pub encoding: Option<BasicEncoding>,
 }
 
 impl TcpSinkConfig {
@@ -187,11 +183,15 @@ impl Sink for TcpSink {
     }
 }
 
-pub fn raw_tcp(addr: SocketAddr, acker: Acker, encoding: Option<Encoding>) -> super::RouterSink {
+pub fn raw_tcp(
+    addr: SocketAddr,
+    acker: Acker,
+    encoding: Option<BasicEncoding>,
+) -> super::RouterSink {
     Box::new(
         TcpSink::new(addr)
             .stream_ack(acker)
-            .with(move |event| encode_event(event, &encoding)),
+            .with(move |event| encoding::log_event_as_bytes_with_nl(event, &encoding)),
     )
 }
 
@@ -204,26 +204,4 @@ pub fn tcp_healthcheck(addr: SocketAddr) -> super::Healthcheck {
     });
 
     Box::new(check)
-}
-
-fn encode_event(event: Event, encoding: &Option<Encoding>) -> Result<Bytes, ()> {
-    let log = event.into_log();
-
-    let b = match (encoding, log.is_structured()) {
-        (&Some(Encoding::Json), _) | (_, true) => {
-            serde_json::to_vec(&log.all_fields()).map_err(|e| panic!("Error encoding: {}", e))
-        }
-        (&Some(Encoding::Text), _) | (_, false) => {
-            let bytes = log
-                .get(&event::MESSAGE)
-                .map(|v| v.as_bytes().to_vec())
-                .unwrap_or(Vec::new());
-            Ok(bytes)
-        }
-    };
-
-    b.map(|mut b| {
-        b.push(b'\n');
-        Bytes::from(b)
-    })
 }
