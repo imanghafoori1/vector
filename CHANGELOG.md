@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - aws_cloudwatch_logs: `stream_name` now accepts `{{key}}` synatx for extracting values from events.
 - aws_cloudwatch_logs: retry support added and more stablity improvements
 - coercer: New transform to convert fields into specified types.
+- journald: New source to read in logs from journald
 
 ### Changed
   - [configuration] Empty inputs are treated as errors instead of warnings [#506]

@@ -26,6 +26,7 @@ and [source][docs.sources].
 |:-----|:------------|
 | **Sources** | |
 | [`file` source][docs.file_source] | `best_effort` |
+| [`journald` source][docs.journald_source] | `best_effort` |
 | [`statsd` source][docs.statsd_source] | `best_effort` |
 | [`stdin` source][docs.stdin_source] | `at_least_once` |
 | [`syslog` source][docs.syslog_source] | `best_effort` |
@@ -115,6 +116,7 @@ keep you in the loop if this ever changes.
 [docs.event]: ../about/data-model.md#event
 [docs.file_source]: ../usage/configuration/sources/file.md
 [docs.http_sink]: ../usage/configuration/sinks/http.md
+[docs.journald_source]: ../usage/configuration/sources/journald.md
 [docs.kafka_sink]: ../usage/configuration/sinks/kafka.md
 [docs.prometheus_sink]: ../usage/configuration/sinks/prometheus.md
 [docs.sinks]: ../usage/configuration/sinks

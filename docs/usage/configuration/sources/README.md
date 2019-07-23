@@ -25,6 +25,7 @@ that receive data over the network, like the [`vector`][docs.vector_source],
 | Name  | Description |
 |:------|:------------|
 | [**`file`**][docs.file_source] | Ingests data through one or more local files and outputs [`log`][docs.log_event] events. |
+| [**`journald`**][docs.journald_source] | Ingests data through log records from journald and outputs [`log`][docs.log_event] events. |
 | [**`statsd`**][docs.statsd_source] | Ingests data through the StatsD UDP protocol and outputs [`log`][docs.log_event] events. |
 | [**`stdin`**][docs.stdin_source] | Ingests data through standard input (STDIN) and outputs [`log`][docs.log_event] events. |
 | [**`syslog`**][docs.syslog_source] | Ingests data through the Syslog 5424 protocol and outputs [`log`][docs.log_event] events. |
@@ -37,6 +38,7 @@ that receive data over the network, like the [`vector`][docs.vector_source],
 [docs.agent_role]: ../../../setup/deployment/roles/agent.md
 [docs.event]: ../../../about/data-model.md#event
 [docs.file_source]: ../../../usage/configuration/sources/file.md
+[docs.journald_source]: ../../../usage/configuration/sources/journald.md
 [docs.log_event]: ../../../about/data-model.md#log
 [docs.service_role]: ../../../setup/deployment/roles/service.md
 [docs.statsd_source]: ../../../usage/configuration/sources/statsd.md
