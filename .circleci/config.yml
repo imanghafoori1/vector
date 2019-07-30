@@ -28,6 +28,10 @@ jobs:
     docker:
       - image: timberiodev/vector-checker:latest
     steps:
+      - run:
+          command: |
+            apt-get update -y
+            apt-get install -y libsystemd-dev
       - checkout
       - run:
           name: Check code
@@ -84,6 +88,10 @@ jobs:
         environment:
           - discovery.type=single-node
     steps:
+      - run:
+          command: |
+            apt-get update -y
+            apt-get install -y libsystemd-dev
       - checkout
       - run:
           name: Test
@@ -154,6 +162,10 @@ jobs:
       - image: timberiodev/vector-builder-x86_64-unknown-linux-gnu:latest
     resource_class: xlarge
     steps:
+      - run:
+          command: |
+            apt-get update -y
+            apt-get install -y libsystemd-dev
       - checkout
       - run:
           name: Build archive
