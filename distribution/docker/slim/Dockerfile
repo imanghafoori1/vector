@@ -1,7 +1,7 @@
 FROM debian:9-slim AS builder
 
 RUN apt-get update -y
-RUN apt-get install -y wget
+RUN apt-get install -y wget libsystemd-dev
 
 ENV VECTOR_VERSION latest
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" && \
