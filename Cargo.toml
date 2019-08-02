@@ -138,6 +138,7 @@ tokio-test = { git = "https://github.com/tokio-rs/tokio", branch = "v0.1.x" }
 default = ["rdkafka", "leveldb", "jemallocator"]
 docker = [
   "cloudwatch-integration-tests",
+  "cloudwatch-metrics-integration-tests",
   "es-integration-tests",
   "kafka-integration-tests",
   "kinesis-integration-tests",
@@ -145,6 +146,7 @@ docker = [
   "splunk-integration-tests",
 ]
 cloudwatch-integration-tests = []
+cloudwatch-metrics-integration-tests = []
 es-integration-tests = []
 kafka-integration-tests = []
 kinesis-integration-tests = []

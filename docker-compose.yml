@@ -4,8 +4,9 @@ services:
       image: localstack/localstack
       ports:
         - "4568:4568"
+        - "4582:4582"
       environment:
-        SERVICES: kinesis
+        SERVICES: kinesis:4568,cloudwatch:4582
     minio:
       image: minio/minio
       ports:
