@@ -14,6 +14,7 @@ use vector::{sinks, sources, transforms};
 
 mod batch;
 mod buffering;
+mod files;
 mod http;
 mod lua;
 
@@ -591,6 +592,7 @@ criterion_main!(
     benches,
     buffering::buffers,
     http::http,
+    files::files,
     batch::batch,
     lua::lua
 );

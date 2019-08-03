@@ -8,8 +8,8 @@
   type = "file" # must be: file
   path = "./sample.out" #allows templates like "/some/path/{{host}}.log"
 
-  close_timeout_sec = 60 #optional; good for releasing unused partitions,
-                         #but can a bit slow down performance
+  close_timeout_secs = 60 #optional; good for releasing unused partitions,
+                          #but can a bit slow down performance
 
   inputs = ["my-source-id"]
 
